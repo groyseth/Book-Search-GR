@@ -5,10 +5,7 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('projects').populate({
-        path: 'projects',
-        populate: 'comments'
-      });;
+      return User.find()
   
     },
    
@@ -16,17 +13,6 @@ const resolvers = {
   },
   
 
-  Mutation: {
-    addUser: async (parent, { userName, github, password }) => {
-      console.log("addUser");
-      const users = await User.create({ userName, github, password });
-      const token = signToken(users);
-      // console.log(token);
-      // console.log(users);
-
-      return { token, users };
-    },
-  },
 };
   
 module.exports = resolvers;
